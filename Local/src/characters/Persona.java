@@ -1,9 +1,9 @@
 package characters;
 
-public class Character {
+public class Persona {
     private int currentHealth, maxHealth, currentLevel, baseAttack, currentAttack, currentEXP, maxEXP;
     private String name, classPlaceHolder;
-    public Character(String name_, String classPlaceHolder_, int currentLevel_,int maxHealth_, int baseAttack_, int maxEXP_)
+    public Persona(String name_, String classPlaceHolder_, int currentLevel_, int maxHealth_, int baseAttack_, int maxEXP_)
     {
         this.name = name_;
         this.classPlaceHolder = classPlaceHolder_;
@@ -16,13 +16,13 @@ public class Character {
         this.maxEXP = maxEXP_;
     }
 
-    public Character(String name_, int currentLevel_)
+    public Persona(String name_, int currentLevel_)
     {
         this(name_, "Cardboard Cutout", currentLevel_, 100 + (10*currentLevel_),
                 5 + currentLevel_, 100 * currentLevel_);
     }
 
-    public Character()
+    public Persona()
     {
         this("Generic Git", "Cardboard Cutout", 1, 110,
                 6, 100 );
@@ -90,6 +90,16 @@ public class Character {
 
     public void setCurrentEXP(int EXPchanger){ this.currentEXP = EXPchanger; }
 
+    public String[] getStatsList(){
+        String[] tempList = new String[6];
+        tempList[0] = "Name: " + getName();
+        tempList[1] = "Class: " + getClassType();
+        tempList[2] = "Level: " + getLevel();
+        tempList[3] = "Current Attack: " + getCurrentAttack();
+        tempList[4] = "Current Health: " + getCurrentHealth();
+        tempList[5] = "Max Health: "+getMaxHealth();
+        return tempList;
+    }
     public String toString()
     {
         return "Name: " + getName() + "\nClass: " + getClassType() + "\nLevel: " + getLevel()
