@@ -4,3 +4,4 @@
 *.iml
 Local/.idea/.name
 Local/.idea/$PRODUCT_WORKSPACE_FILE$
+*.kotlin_module

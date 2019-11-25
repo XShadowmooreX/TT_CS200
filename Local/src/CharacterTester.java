@@ -1,7 +1,9 @@
-public class Tester {
+import characters.Character;
+
+public class CharacterTester {
     public static void main(String[] args)
     {
         Character newb = new Character();
-        newb.toString();
+        System.out.println(newb);
     }
 }
