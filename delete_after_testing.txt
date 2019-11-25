@@ -1,1 +1,0 @@
-This file is solely to test merge and commit/pull request on master and branches.
