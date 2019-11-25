@@ -8,11 +8,11 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class CombatWindow {
     private JPanel PanelCombatMain;
-    private JLabel LabelTitle;
     private JPanel PanelCombatants;
     private JPanel PanelStats;
     private JButton ButtonAttack;
@@ -20,47 +20,50 @@ public class CombatWindow {
     private JPanel PanelEnemy;
     private JPanel PanelButtons;
     private JLabel LabelStats;
-    private ArrayList<Image> stickGuys = new ArrayList<>();
+    private ArrayList<Image> stickGuys;
     private BufferedImage img = null;
 
     private int count;
 
     public CombatWindow() {
         String pic;
-        this.count = 0;
-        //TODO figure this image out for the panelStats
-//        Icon litIcon = new ImageIcon(A0.png);
-//        LabelStats.setIcon(litIcon);
-        for(int i = 0; i < 3; i++) {
-            pic = "A" + i + ".png";
-            try {
-                img = ImageIO.read(new File(pic));
-            } catch (IOException e) {
-            }
-            stickGuys.add(img);
-        }
+        count = 0;
         ButtonAttack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                count++;
                 if(count == 3){
                     count = 0;
                 }
-                LabelStats.setText(null);
-                ImageIcon newImg = new ImageIcon(stickGuys.get(count));
-                LabelStats.setIcon(newImg);
-//                LabelStats.imageUpdate(stickGuys.get(count),0,-1,-1, 600, 250);
-                System.out.println(("pressed count: "+ count));
+                showImage(count);
+                count++;
             }
         });
     }
+    /**
+     * https://www.youtube.com/watch?v=OTTIsOSzSts used to inspire image methods
+     * @return
+     */
+    private String[] getImages(){
+        File file = new File(String.valueOf(getClass().getResource("/images").getFile()));
+        return file.list();
+    }
 
+    public void showImage(int indexIn){
+        String[] imagesList = getImages();
+        String imageName = imagesList[indexIn];
+        ImageIcon icon = new ImageIcon(getClass().getResource("/images/" + imageName));
+        Image image = icon.getImage().getScaledInstance(800, 275, Image.SCALE_SMOOTH);
+        LabelStats.setText(null);
+        LabelStats.setIcon(new ImageIcon(image));
+    }
     public void createAndShowGUI() {
-
         System.out.println("Created GUI on EDT? "+
                 SwingUtilities.isEventDispatchThread());
-        JFrame frame = new JFrame("Title Placeholder in combatwindow.java");
+        URL iconURL = getClass().getResource("/favicon/TTfavicon.png");
+        ImageIcon icon = new ImageIcon(iconURL);
+        JFrame frame = new JFrame("Tallest Tower Build 1.0");
         frame.setMinimumSize(new Dimension(800, 600));
+        frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(PanelCombatMain);
 
