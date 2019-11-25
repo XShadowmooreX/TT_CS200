@@ -31,11 +31,9 @@ public class CombatWindow {
         ButtonAttack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(count == 3){
-                    count = 0;
-                }
                 showImage(count);
                 count++;
+                if(count>2){count = 0;}
             }
         });
     }
@@ -47,7 +45,14 @@ public class CombatWindow {
         File file = new File(String.valueOf(getClass().getResource("/images").getFile()));
         return file.list();
     }
-
+    /**
+     * https://www.youtube.com/watch?v=OTTIsOSzSts used to inspire image methods
+     * @return
+     */
+    public String[] getImages(){
+        File file = new File(String.valueOf(getClass().getResource("/images").getFile()));
+        return file.list();
+    }
     public void showImage(int indexIn){
         String[] imagesList = getImages();
         String imageName = imagesList[indexIn];
@@ -70,6 +75,4 @@ public class CombatWindow {
         frame.pack();
         frame.setVisible(true);
     }
-
-
 }
